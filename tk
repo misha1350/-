@@ -1,0 +1,43 @@
+import tkinter as tk
+
+kh = 0 #переменная для проверки уже выведенного лейбла
+output_label = None
+
+root = tk.Tk()
+root.geometry("300x200")
+
+def dec_to_binary(n):
+	temp = 0 #чтобы было понятнее другим при прочтении вашего кода, называйте временные переменные как "t" или "temp" (лучше temp, так понятнее), от слова temporary (временный)
+	tempstr = '' #аналогично, но под "str" понимается string (строка), так вы даёте себе и другим знать, что это именно переменная типа string, а не что-то ещё 
+	while (n > 0):
+		temp = n % 2 #остаток от деления
+		n = n // 2 #только кратное кол-во раз
+		tempstr += str(temp)
+	return tempstr
+
+def enter():
+	global output_label, kh
+	num = int(entry.get())
+	binary = dec_to_binary(num)
+	output = str(binary[::-1]) #берём полученное число (переводим массив двоичных чисел, делаем срез от конца массива до его начала, и переводим выводимые данные в тип 'str', присваеваем эту строку переменной output), чтобы было проще создать label
+	if output_label is None: #если в памяти лейбла нет,
+		output_label = tk.Label(root, text = (f"ваше число: {output}")) #то записываем его в память
+		output_label.pack(side = 'top')
+	if kh == 1: #если уже вывели лейбл,
+		output_label.destroy() #удаляем его из памяти,
+		output_label = tk.Label(root, text = (f"ваше число: {output}")) #записываем его в память по новой
+		output_label.pack(side = 'top') #и так же выводим его
+	else:
+		kh = 1
+    
+entry_label = tk.Label(text = "Введите число")
+entry_label.pack()
+
+frame = tk.Frame(root)
+frame.pack()
+entry_button = tk.Button(frame, text = "Ввод", command = enter)
+entry = tk.Entry(frame)
+entry.pack(side = 'left')
+entry_button.pack(side = 'right')
+
+root.mainloop()

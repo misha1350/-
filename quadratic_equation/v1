@@ -1,0 +1,43 @@
+# Калькулятор квадратных уравнений v1
+# Сделано за 1ч 07мин
+
+import math
+
+def discriminant(a, b, c):
+	disc = b*b - 4*a*c
+	return disc
+
+def solveTwo(a, b, disc):
+	sqrtdisc = math.sqrt(abs(disc))
+	x1 = (-b - sqrtdisc) / 2*a
+	x2 = (-b + sqrtdisc) / 2*a
+	print("x1 и x2:", x1, x2)
+def solveOne(a, b):
+	x = -b / 2*a
+	print("x:", x)
+
+print("Введите квадратное уравнение (ax^2 + bx + c = 0):")
+a = int(input('a = '))
+b = int(input('b = '))
+c = int(input('c = '))
+
+disc = discriminant(a, b, c)
+print("Дискриминант:", disc, end =", ")
+if (math.sqrt(abs(disc)) != round(math.sqrt(abs(disc)))):
+	print("Корень из дискриминанта = ", math.sqrt(abs(disc)))
+	proceed = input("Что-то тут не так... Продолжить? (y/n) ")
+	if (proceed.lower() != "y"):
+		exit(-2)
+	
+
+if (disc > 0):
+	print("Два корня")
+	solveTwo(a, b, disc)
+	exit(2)
+elif(disc == 0):
+	print("Один корень")
+	solveOne(a, b)
+	exit(1)
+else:
+	print("Комплексные корни")
+	exit(-1)
